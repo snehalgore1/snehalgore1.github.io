@@ -36,7 +36,7 @@ export function TakeABreak() {
         type="button"
         onClick={drop}
         aria-label="Take a break — rain some matcha treats"
-        className="fixed bottom-5 left-5 z-[350] inline-flex items-center gap-1.5 rounded-full border border-matcha/50 bg-ivory/90 px-3.5 py-2 font-mono text-xs font-semibold text-matcha-deep shadow-[var(--shadow-sm)] backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:bg-matcha/15 hover:shadow-[var(--shadow-md)]"
+        className="fixed bottom-5 left-5 z-[350] hidden sm:inline-flex items-center gap-1.5 rounded-full border border-matcha/50 bg-ivory/90 px-3.5 py-2 font-mono text-xs font-semibold text-matcha-deep shadow-[var(--shadow-sm)] backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:bg-matcha/15 hover:shadow-[var(--shadow-md)]"
       >
         🍵 Take a break
       </button>

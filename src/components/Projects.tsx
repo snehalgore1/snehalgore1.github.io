@@ -3,13 +3,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { projects, type Project } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
 import { highlight } from '../lib/highlight';
+import { Thumb } from './Thumb';
 
 const CATEGORIES = ['All', 'Systems', 'ML Systems', 'AI / LLM', 'Tools'] as const;
 type Filter = (typeof CATEGORIES)[number];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function CaseStudy({ p }: { p: Project }) {
+export function CaseStudy({ p }: { p: Project }) {
   return (
     <motion.div
       initial={{ opacity: 0, height: 0 }}
@@ -26,7 +27,7 @@ function CaseStudy({ p }: { p: Project }) {
           <p className="mt-1.5 text-sm leading-relaxed text-cocoa">{p.whyItMatters}</p>
         </div>
         <div>
-          <h4 className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">What I built</h4>
+          <h4 className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{p.org ? 'What I did' : 'What I built'}</h4>
           <ul className="mt-1.5 space-y-1.5">
             {p.whatIBuilt.map((b, i) => (
               <li key={i} className="flex gap-2 text-sm leading-relaxed text-cocoa">
@@ -63,6 +64,7 @@ function ProjectCard({ p, open, onToggle }: { p: Project; open: boolean; onToggl
       whileHover={open ? undefined : { y: -6 }}
     >
       <motion.div layout="position">
+        <Thumb id={p.id} alt="" className="-mx-6 -mt-6 mb-5 block aspect-video w-[calc(100%+3rem)] min-w-0 max-w-none rounded-t-2xl object-cover" />
         <div className="mb-3 flex items-center justify-between gap-2">
           <span className="rounded-full bg-butter/70 px-3 py-1 font-mono text-[11px] font-medium text-espresso">
             {p.category}
@@ -127,7 +129,7 @@ function ProjectCard({ p, open, onToggle }: { p: Project; open: boolean; onToggl
   );
 }
 
-function FeaturedBlock({ p, flip }: { p: Project; flip: boolean }) {
+export function FeaturedBlock({ p, flip }: { p: Project; flip: boolean }) {
   const [open, setOpen] = useState(false);
   return (
     <motion.article
@@ -141,8 +143,11 @@ function FeaturedBlock({ p, flip }: { p: Project; flip: boolean }) {
             flip ? 'lg:order-2' : ''
           }`}
         >
+          <Thumb id={p.id} alt="" overlay className="absolute inset-0 h-full w-full object-cover" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-butter/20 blur-2xl" />
-          <span className="relative font-mono text-[11px] uppercase tracking-[0.18em] text-butter">{p.category}</span>
+          <span className="relative font-mono text-[11px] uppercase tracking-[0.18em] text-butter">
+            {p.org ? `${p.org} · ${p.category}` : p.category}
+          </span>
           <h3 className="relative mt-4 font-serif text-3xl font-semibold leading-[1.05] text-ivory sm:text-4xl">
             {p.title}
           </h3>
@@ -280,7 +285,7 @@ export function Projects() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, ease: EASE }}
-                  className={open ? 'sm:col-span-2 lg:col-span-3' : ''}
+                  className={`min-w-0 ${open ? 'sm:col-span-2 lg:col-span-3' : ''}`}
                 >
                   <ProjectCard p={p} open={open} onToggle={() => setOpenId(open ? null : p.id)} />
                 </motion.div>

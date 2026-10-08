@@ -3,10 +3,10 @@ import { useReveal } from '../hooks/useReveal';
 
 // Truthful, resume-sourced highlight numbers.
 const STATS = [
-  { value: 2.5, decimals: 1, prefix: '', suffix: '+', label: 'years shipping production systems' },
-  { value: 1, decimals: 0, prefix: '', suffix: 'M+', label: 'devices running my ML in the field' },
-  { value: 180, decimals: 0, prefix: '', suffix: '×', label: 'faster inference in MiniTensorRT' },
-  { value: 10, decimals: 0, prefix: '', suffix: '', label: 'projects built end to end' },
+  { value: 1, decimals: 0, prefix: '', suffix: 'M+', label: 'appliances running models I shipped' },
+  { value: 250, decimals: 0, prefix: '$', suffix: 'K+', label: 'yearly cloud cost removed by moving ML on-device' },
+  { value: 9, decimals: 0, prefix: '', suffix: '×', label: 'fewer ungrounded LLM answers (45% → 5%) at SnapRefund' },
+  { value: 180, decimals: 0, prefix: '', suffix: '×', label: 'GEMM speedup in my C++ inference runtime' },
 ] as const;
 
 function CountUp({ value, decimals, start }: { value: number; decimals: number; start: boolean }) {

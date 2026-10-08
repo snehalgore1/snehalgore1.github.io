@@ -1,4 +1,5 @@
-import { experience, education } from '../data/portfolio';
+import { useState } from 'react';
+import { experience, education, type ExperienceItem } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
 import { highlight } from '../lib/highlight';
 
@@ -12,7 +13,7 @@ export function Experience() {
           Where I've shipped
         </h2>
         <p className="mt-3 max-w-xl text-cocoa">
-          2.5+ years taking production systems from first commit to field rollout.
+          2.5+ years taking production systems from first commit to field rollout, plus a summer building payments and LLM infrastructure at a startup.
         </p>
 
         {/* Vertical timeline */}
@@ -43,14 +44,7 @@ export function Experience() {
                 <p className="mt-3 font-serif text-base italic text-cocoa">{job.summary}</p>
               )}
 
-              <ul className="mt-4 space-y-2.5">
-                {job.bullets.map((b, i) => (
-                  <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-cocoa">
-                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-butter-deep" />
-                    <span>{highlight(b)}</span>
-                  </li>
-                ))}
-              </ul>
+              <JobDetails job={job} />
 
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {job.tech.map((t) => (
@@ -77,6 +71,7 @@ export function Experience() {
                   <h3 className="font-serif text-lg text-espresso">{e.school}</h3>
                   <p className="mt-0.5 text-sm text-cocoa">{e.degree}</p>
                   <p className="mt-1 font-mono text-[11px] text-cocoa/70">{e.period} · {e.location}</p>
+                  {e.detail && <p className="mt-2 text-xs leading-relaxed text-cocoa/90">{e.detail}</p>}
                 </div>
               ))}
             </div>
@@ -84,5 +79,47 @@ export function Experience() {
         </ol>
       </div>
     </section>
+  );
+}
+
+function JobDetails({ job }: { job: ExperienceItem }) {
+  const [more, setMore] = useState(false);
+  const extra = job.moreBullets ?? [];
+  const list = more ? [...job.bullets, ...extra] : job.bullets;
+  const listId = `more-${job.company.replace(/\W+/g, '-').toLowerCase()}`;
+  return (
+    <>
+      {job.impact && job.impact.length > 0 && (
+        <ul className="mt-4 flex flex-wrap gap-2" aria-label="Impact highlights">
+          {job.impact.map((m) => (
+            <li key={m} className="rounded-md bg-ivory px-2.5 py-1 font-mono text-[11px] font-medium text-sage ring-1 ring-sage/25">
+              {m}
+            </li>
+          ))}
+        </ul>
+      )}
+      <ul id={listId} className="mt-4 space-y-2.5">
+        {list.map((b, i) => (
+          <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-cocoa">
+            <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-butter-deep" />
+            <span>{highlight(b)}</span>
+          </li>
+        ))}
+      </ul>
+      {extra.length > 0 && (
+        <button
+          type="button"
+          onClick={() => setMore((v) => !v)}
+          aria-expanded={more}
+          aria-controls={listId}
+          className="mt-3 inline-flex items-center gap-1 rounded-full px-1 text-sm font-semibold text-gold underline-offset-4 hover:underline"
+        >
+          {more ? 'Show less' : `Show ${extra.length} more`}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" className={`transition-transform duration-300 ${more ? 'rotate-180' : ''}`}>
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      )}
+    </>
   );
 }

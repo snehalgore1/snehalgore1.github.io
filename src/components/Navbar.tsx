@@ -71,6 +71,8 @@ export function Navbar({ dusk = false }: { dusk?: boolean }) {
           <li>
             <a
               href={profile.resumeFile}
+              target="_blank"
+              rel="noreferrer"
               className={`ml-2 rounded-full px-5 py-2 text-sm font-semibold shadow-[var(--shadow-sm)] transition-all duration-300 hover:shadow-[var(--shadow-md)] hover:brightness-110 ${
                 dark ? 'bg-butter text-espresso' : 'bg-espresso text-ivory'
               }`}
@@ -125,6 +127,8 @@ export function Navbar({ dusk = false }: { dusk?: boolean }) {
             <li className="pt-2">
               <a
                 href={profile.resumeFile}
+                target="_blank"
+                rel="noreferrer"
                 onClick={() => setOpen(false)}
                 className="block rounded-full bg-espresso px-5 py-3 text-center text-base font-semibold text-ivory"
               >

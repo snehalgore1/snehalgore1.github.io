@@ -1,5 +1,6 @@
 import { profile, avatars } from '../data/portfolio';
 import { Avatar } from './Avatar';
+import { CopyEmail } from './ContactLinks';
 
 export function Footer() {
   return (
@@ -48,7 +49,7 @@ export function Footer() {
             Let's build something
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-cocoa">
-            I'm open to AI/ML engineering roles and interesting problems. The fastest way to reach me is email.
+            I'm looking for full-time software, AI/ML and forward-deployed engineering roles starting January 2027, anywhere in the US. The fastest way to reach me is email.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -58,6 +59,7 @@ export function Footer() {
             >
               {profile.email}
             </a>
+            <CopyEmail className="rounded-full border border-espresso/15 px-6 py-3 text-sm font-semibold text-espresso transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-gold" />
             <a
               href={profile.linkedin}
               target="_blank"

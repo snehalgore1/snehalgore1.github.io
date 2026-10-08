@@ -1,0 +1,98 @@
+% Snehal Gore - one-page resume (SWE / AI-ML / FDE). Every line comes from the master resume.
+\documentclass[letterpaper,10pt]{article}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.2in}
+\urlstyle{same}
+\raggedbottom\raggedright
+\setlength{\tabcolsep}{0in}
+\titleformat{\section}{\vspace{-8pt}\scshape\raggedright\large}{}{0em}{}[\color{black}\titlerule\vspace{-5pt}]
+\newcommand{\entry}[4]{\item[]\begin{tabular*}{\linewidth}[t]{l@{\extracolsep{\fill}}r}\textbf{#1} & #2\\ \textit{\small#3} & \textit{\small#4}\\\end{tabular*}\vspace{-6pt}}
+\newcommand{\proj}[2]{\item[]\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}\small#1 & \small#2\\\end{tabular*}\vspace{-6pt}}
+\newcommand{\pt}[1]{\item\small{#1\vspace{-2.5pt}}}
+\newcommand{\listS}{\begin{itemize}[leftmargin=0.15in,label={}]}
+\newcommand{\listE}{\end{itemize}}
+\newcommand{\bS}{\begin{itemize}[leftmargin=0.18in,label={-}]}
+\newcommand{\bE}{\end{itemize}\vspace{-4pt}}
+
+\begin{document}
+
+\begin{center}
+  {\Huge Snehal Gore}\\ \vspace{2pt}
+  \footnotesize Los Angeles, CA $|$
+  \href{mailto:ssgore18@gmail.com}{ssgore18@gmail.com} $|$ +1 310-462-7354 $|$
+  \href{https://linkedin.com/in/snehal-gore}{linkedin.com/in/snehal-gore} $|$
+  \href{https://github.com/snehalgore1}{github.com/snehalgore1} $|$
+  \href{https://snehalgore1.github.io}{snehalgore1.github.io}
+\end{center}
+\vspace{-8pt}
+
+\section{Summary}
+\small Software Engineer with 2.5+ years shipping production systems; M.S. in Computer Science (AI) from USC, December 2026; available full-time January 2027 and open to relocation. Backend services, distributed systems, AI/ML infrastructure, and LLM applications.
+
+\section{Experience}
+\listS
+\entry{SnapRefund (Early-Stage InsurTech Startup)}{Los Angeles, CA}{Software Engineer Intern}{May 2026 -- Aug 2026}
+\bS
+\pt{Built \textbf{AiSnap}, a production \textbf{Gemini function-calling} assistant that lets merchants and admins query live payment data in natural language, translating questions into typed \textbf{PostgreSQL} tools via a \textbf{NestJS} API.}
+\pt{Reduced ungrounded financial answers from \textbf{45\% to 5\%} by detecting responses that reported figures without a database call and forcing tool-use regeneration; added tenant-scoped queries, field allowlisting, PII sanitization, and burst/daily rate limiting.}
+\pt{Led migration of a payments platform from Firebase Cloud Functions to NestJS/PostgreSQL, re-implementing Firebase's scrypt password hashing so \textbf{10K+ existing users} authenticated with \textbf{zero password resets}.}
+\pt{Engineered concurrency-safe payment processing with PostgreSQL \textbf{SKIP LOCKED} row locking and stale-lock recovery to horizontally scale mass-payment workers, using idempotency keys to guarantee \textbf{exactly-once} recurring disbursements.}
+\pt{Built signed outbound webhook delivery with HMAC-SHA256 signatures, exponential retry, and per-account event subscriptions on \textbf{AWS SQS}, routing failures through a dead-letter queue to SNS/Lambda alerts, provisioned in Pulumi across 4 environments.}
+\bE
+\entry{Whirlpool Corporation}{Pune, India}{Software Engineer, Machine Learning}{Jul 2022 -- Dec 2024}
+\bS
+\pt{Migrated production ML inference from cloud to on-device execution across \textbf{1M+ connected appliances} with quantized TensorFlow Lite models, eliminating \textbf{$\mathdollar$250K+/year} in cloud costs and cutting latency \textbf{3$\times$}.}
+\pt{Replaced rule-based dryer time-remaining logic with a \textbf{sub-1K-parameter} neural network after LSTM, XGBoost, and Random Forest exceeded controller memory, deployed via TinyML to 1M+ dryers, cutting error \textbf{7$\times$} ($\pm$35 to $\pm$5 min).}
+\pt{Built the oven's lens-cleanliness detection in the Android touchscreen app (Java, CameraX, TensorFlow Lite) with INT8-quantized EfficientNet on a 4$\times$4 frame grid, prompting a clean at 75\%+ obstruction; won a \textbf{Whirlpool STAR Award}.}
+\pt{Automated build, packaging, and staged \textbf{OTA rollout} of on-device models across cooking and laundry product lines, cutting release cycles from \textbf{days to hours} while sustaining \textbf{99.5\%} latency-SLA compliance.}
+\pt{Generated \textbf{50K+} synthetic stain images by fine-tuning Stable Diffusion with DreamBooth, raising a 20+ class classifier's accuracy \textbf{38\%}; fine-tuned \textbf{Mistral-7B with QLoRA} on 8K+ fabric-care prompt pairs for wash recommendations.}
+\bE
+\listE
+
+\section{Projects}
+\listS
+\proj{\textbf{Distributed Object Store} $|$ \emph{C++20, gRPC, Raft, Kubernetes}}{\href{https://github.com/snehalgore1/distributed-object-storage}{github.com/snehalgore1/distributed-object-storage}}
+\bS
+\pt{Built a C++20 distributed object store with a consistent-hash ring, RF=3 replication over gRPC, and W=2 quorum writes, sustaining about \textbf{3.8K req/s} on a 3-node cluster; implemented \textbf{Raft from scratch} for the metadata control plane.}
+\pt{Made writes atomic and fsync'd behind a CRC32-checked write-ahead log with SHA-256 verified reads; validated by \textbf{131 tests} including chaos tests that kill nodes and corrupt data, with ThreadSanitizer CI.}
+\bE
+\proj{\textbf{MiniTensorRT: C++ Inference Runtime} $|$ \emph{C++17, CUDA, ARM NEON}}{\href{https://github.com/snehalgore1/mini-tensorrt}{github.com/snehalgore1/mini-tensorrt}}
+\bS
+\pt{Built a from-scratch inference runtime with a graph IR, fusion passes, and CPU and CUDA backends, running GPT-2 (124M) token-for-token identical to Hugging Face; a 64-token forward pass takes \textbf{21.7 ms} on a Tesla T4.}
+\pt{Raised GEMM throughput about \textbf{180$\times$} (1.7 to 310 GFLOP/s) with a packed ARM NEON microkernel, cutting GPT-2 block latency \textbf{56$\times$} and peak memory \textbf{12.5$\times$} through arena memory planning and operator fusion.}
+\bE
+\proj{\textbf{Agentic RAG and Hybrid Search Platform} $|$ \emph{Python, LangGraph, OpenSearch, Airflow}}{\href{https://github.com/snehalgore1/agentic-rag}{github.com/snehalgore1/agentic-rag}}
+\bS
+\pt{Improved Recall@10 by \textbf{35\%} over BM25-only on 10K+ documents by combining BM25 and dense retrieval with Reciprocal Rank Fusion, at \textbf{under 2 s p95} across 7 containerized services, with a LangGraph agent for relevance grading and query rewriting.}
+\bE
+\listE
+
+\section{Education}
+\listS
+\entry{University of Southern California}{Los Angeles, CA}{M.S. Computer Science, AI Specialization}{Jan 2025 -- Dec 2026 (Expected)}
+\item[]\small Coursework: Analysis of Algorithms, Machine Learning, Applied NLP, Information Retrieval, Hardware Foundations of ML\vspace{-3pt}
+\entry{Savitribai Phule Pune University}{Pune, India}{B.E. Computer Engineering; GPA 9.4/10}{May 2018 -- May 2022}
+\listE
+
+\section{Technical Skills}
+\listS
+\item[]\small
+\textbf{Languages:} Python, C++ (17/20), TypeScript, JavaScript, SQL, Java, CUDA C++, Bash\\
+\textbf{Backend \& Systems:} NestJS, Node.js, FastAPI, gRPC, PostgreSQL, Redis, OpenSearch, Raft, concurrency, distributed systems\\
+\textbf{AI/ML:} PyTorch, TensorFlow Lite, Hugging Face, ONNX, LangGraph, RAG, LoRA/QLoRA, function calling, quantization\\
+\textbf{Cloud \& DevOps:} AWS (SageMaker, S3, SQS, Lambda, Redshift), GCP Vertex AI, Docker, Kubernetes, Pulumi, MLflow, Airflow\\
+\textbf{Awards:} Whirlpool STAR Award (2023); 1st place of 200+ teams, Whirlpool Global Software Hackathon (2024)
+\listE
+
+\end{document}

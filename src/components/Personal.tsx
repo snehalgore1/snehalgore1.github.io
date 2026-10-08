@@ -1,4 +1,4 @@
-import { personal, avatars } from '../data/portfolio';
+import { personal, avatars, photos } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
 import { Avatar } from './Avatar';
 
@@ -59,7 +59,26 @@ export function Personal() {
                 {personal.heading}
               </h2>
             </div>
-            <Avatar src={avatars.hobbies} alt="Snehal with a hiking backpack" size={96} caption="off exploring" />
+            <Avatar src={avatars.hobbies} alt="" size={96} caption="off exploring" />
+          </div>
+
+          <div className="mt-8 grid items-start gap-4 sm:grid-cols-2">
+            {[
+              { src: photos.trail, w: 1280, h: 960, alt: 'Snehal on a stone trail beside a river and pine forest', cap: 'out on the trail' },
+              { src: photos.tableTennis, w: 1600, h: 1066, alt: 'A table tennis match in a college hall with students watching', cap: 'table tennis, a longtime favorite' },
+            ].map((p) => (
+              <figure key={p.src}>
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  width={p.w}
+                  height={p.h}
+                  loading="lazy"
+                  className="h-auto w-full rounded-2xl ring-1 ring-matcha/30"
+                />
+                <figcaption className="mt-2 font-mono text-[11px] text-cocoa/70">{p.cap}</figcaption>
+              </figure>
+            ))}
           </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr]">

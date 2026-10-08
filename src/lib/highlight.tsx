@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 
 // Bold metric-like tokens ($250K+, 1M+, 180×, 60%, 99.5%, 112, 3×, 7×, 22 ms, 310 GFLOP/s).
-const METRIC = /(\$?\d[\d.,]*(?:\s?(?:M|K|GB|ms|GFLOP\/s|×|x|%))?\+?)/g;
+// The lookbehind skips digits inside names like YOLOv3, INT8 or Llama-3.2.
+const METRIC = /(?<![A-Za-z0-9\-.])(\$?\d[\d.,]*(?:\s?(?:M|K|GB|ms|GFLOP\/s|×|x|%))?\+?)/g;
 
 /** Returns the text with metric tokens wrapped in <strong>. */
 export function highlight(text: string): ReactNode[] {
